@@ -54,7 +54,7 @@ for page in range(1, inf):
                 while 'archive-name.zip' in code:
                     code_link = requests.get(f'https://codeforces.com{problem}/submission/{submission_id.strip()}').text
                     newSoup = BeautifulSoup(code_link, 'lxml')
-                    code = newSoup.find('pre')
+                    code = newSoup.find('pre').text
                     if code == None:
                         code = 'archive-name.zip'
                         continue
@@ -63,7 +63,6 @@ for page in range(1, inf):
                         time.sleep(300)
                 if code == None:
                     continue
-                code = code.text
                 print(submission_id.strip())
                 ex = 'txt'
                 if '++' in language:
