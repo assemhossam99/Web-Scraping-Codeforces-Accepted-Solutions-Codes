@@ -7,10 +7,12 @@ username = input('please enter your codeforces user name (handle): ')
 finished_ids = set()
 inf = 10000000
 done = False
+savedProblems = 0
 if not os.path.isdir('solutions'):
     os.makedirs('solutions')
 for page in range(1, inf):
     print(f'page {page} starts...')
+    print(' ')
     if done:
         break
     html = requests.get(f'https://codeforces.com/submissions/{username}/page/{page}').text
@@ -75,6 +77,7 @@ for page in range(1, inf):
                 print(problem_name)
                 with open(f'solutions/{problem_name.strip()}.{ex}', 'w') as f:
                     f.write(code)
-                print(f'problem [{problem_name.strip()}] saved successfully.')
+                savedProblems = savedProblems + 1
+                print(f'problem [{problem_name.strip()}] saved successfully. {savedProblems} problems were saved successfully.')
                 print('')
                 time.sleep(5)
