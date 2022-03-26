@@ -48,6 +48,9 @@ for page in range(1, inf):
                     code_link = requests.get(f'https://codeforces.com{problem}/submission/{submission_id.strip()}').text
                     newSoup = BeautifulSoup(code_link, 'lxml')
                     code = newSoup.find('pre')
+                    if code == None:
+                        code = 'archive-name.zip'
+                        continue
                     if 'archive-name.zip' in code:
                         print('please wait..')
                         time.sleep(300)
@@ -55,7 +58,7 @@ for page in range(1, inf):
                     continue
                 code = code.text
                 print(submission_id.strip())
-                ex = ''
+                ex = 'txt'
                 if '++' in language:
                     ex = 'cpp'
                 elif 'Py' in language:
