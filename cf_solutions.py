@@ -23,6 +23,7 @@ for page in range(1, inf):
     language = ''
     status = ''
     problem_name = ''
+    problem_number = ''
     for idx, submission in enumerate(submissions):
         if idx % 8 == 0:
             submission_id = submission.text
@@ -31,10 +32,14 @@ for page in range(1, inf):
                 break
             finished_ids.add(submission_id)
         elif idx % 8 == 3:
+            problem_number = ''
             problem = str(submission.a['href'])
             problem_name = submission.text
             while not problem[-1].isdigit() or len(problem) > 20:
                 problem = problem[:-1]
+            for c in problem:
+                if c >= '0' and c <= '9':
+                    problem_number += c
             if problem[1] == 'c':
                 contest_gym = 0
             else:
@@ -70,7 +75,7 @@ for page in range(1, inf):
                 elif 'Java' in language:
                     ex = 'java'
                 problem_name = problem_name.strip()
-                letter = problem_name[0]
+                letter = problem_number + problem_name[0]
                 problem_name = ''.join(ch for ch in problem_name if ch.isalnum())
                 problem_name = problem_name[1:]
                 problem_name = letter + '-' + problem_name
